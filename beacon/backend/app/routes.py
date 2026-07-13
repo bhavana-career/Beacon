@@ -1,7 +1,7 @@
 from fastapi import APIRouter, UploadFile, File
 from app.analysis import analyze_business
-from app.ai import ask_beacon
 import os
+from app.database import reports_collection
 
 router = APIRouter()
 
@@ -18,12 +18,14 @@ async def upload_csv(file: UploadFile = File(...)):
 
     analysis = analyze_business(filepath)
 
-    ai_response = ask_beacon(
-        analysis["summary"]
-    )
+    result = reports_collection.insert_one({
+        "filename": file.filename,
+        "metrics": analysis["metrics"],
+        "summary": analysis["summary"]
+    })
 
     return {
-        "filename": file.filename,
-        "analysis": analysis["metrics"],
-        "beacon": ai_response
+        "message": "Business report stored successfully!",
+        "report_id": str(result.inserted_id),
+        "analysis": analysis["metrics"]
     }
