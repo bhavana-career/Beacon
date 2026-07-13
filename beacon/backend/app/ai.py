@@ -5,13 +5,18 @@ from app.prompts import BEACON_PROMPT
 client = genai.Client(api_key=GOOGLE_API_KEY)
 
 
-def ask_beacon(summary: str):
+def ask_beacon(summary: str, question: str):
+
     prompt = f"""
 {BEACON_PROMPT}
 
-Business Data:
-
+Business Summary:
 {summary}
+
+User Question:
+{question}
+
+Answer like Beacon.
 """
 
     response = client.models.generate_content(

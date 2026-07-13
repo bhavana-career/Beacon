@@ -2,6 +2,9 @@ from fastapi import APIRouter, UploadFile, File
 from app.analysis import analyze_business
 import os
 from app.database import reports_collection
+from bson import ObjectId
+from app.schemas import ChatRequest
+from app.ai import ask_beacon
 
 router = APIRouter()
 
@@ -28,4 +31,24 @@ async def upload_csv(file: UploadFile = File(...)):
         "message": "Business report stored successfully!",
         "report_id": str(result.inserted_id),
         "analysis": analysis["metrics"]
+    }
+@router.post("/chat")
+async def chat(request: ChatRequest):
+
+    report = reports_collection.find_one(
+        {"_id": ObjectId(request.report_id)}
+    )
+
+    if not report:
+        return {
+            "error": "Report not found."
+        }
+
+    answer = ask_beacon(
+        report["summary"],
+        request.question
+    )
+
+    return {
+        "answer": answer
     }
