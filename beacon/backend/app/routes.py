@@ -1,5 +1,6 @@
 from fastapi import APIRouter, UploadFile, File
 from app.analysis import analyze_business
+from app.ai import ask_beacon
 import os
 
 router = APIRouter()
@@ -17,9 +18,12 @@ async def upload_csv(file: UploadFile = File(...)):
 
     analysis = analyze_business(filepath)
 
+    ai_response = ask_beacon(
+        analysis["summary"]
+    )
+
     return {
         "filename": file.filename,
-        "content_type": file.content_type,
-        "analysis": analysis,
-        "message": "Upload successful!"
+        "analysis": analysis["metrics"],
+        "beacon": ai_response
     }
