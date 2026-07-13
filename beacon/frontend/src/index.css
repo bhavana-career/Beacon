@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-executive-bg text-executive-text antialiased min-h-screen selection:bg-executive-gold/20 selection:text-executive-text;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* Custom scrollbar for premium feel */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-executive-border rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-executive-gold/50;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-executive-card border border-executive-border rounded-2xl shadow-lg transition-all duration-300;
+  }
+  
+  .glass-card-hover {
+    @apply hover:shadow-xl hover:border-executive-gold/30;
+  }
+  
+  .btn-lava {
+    @apply bg-executive-gold hover:bg-executive-goldHover text-white font-medium py-3 px-6 rounded-xl shadow-lg shadow-executive-gold/20 hover:shadow-xl hover:shadow-executive-gold/30 transition-all focus:outline-none focus:ring-2 focus:ring-executive-gold focus:ring-offset-2 focus:ring-offset-executive-bg active:scale-95;
+  }
+  
+  .btn-secondary {
+    @apply bg-executive-card hover:bg-executive-surface border border-executive-border text-executive-text font-medium py-3 px-6 rounded-xl shadow-sm hover:shadow transition-all focus:outline-none focus:ring-2 focus:ring-executive-gold focus:ring-offset-2 focus:ring-offset-executive-bg active:scale-95;
+  }
+}

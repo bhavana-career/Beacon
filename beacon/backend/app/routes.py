@@ -52,3 +52,25 @@ async def chat(request: ChatRequest):
     return {
         "answer": answer
     }
+
+@router.get("/reports")
+async def get_reports():
+    reports_cursor = reports_collection.find({}, {"summary": 0, "metrics": 0})
+    reports = []
+    for doc in reports_cursor:
+        reports.append({
+            "id": str(doc["_id"]),
+            "filename": doc.get("filename", "Unknown File")
+        })
+    return {"reports": reports}
+
+@router.get("/reports/{report_id}")
+async def get_report_by_id(report_id: str):
+    report = reports_collection.find_one({"_id": ObjectId(report_id)})
+    if not report:
+        return {"error": "Report not found"}
+    return {
+        "report_id": str(report["_id"]),
+        "filename": report.get("filename"),
+        "analysis": report.get("metrics")
+    }
