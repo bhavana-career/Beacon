@@ -10,13 +10,44 @@ def ask_beacon(summary: str, question: str):
     prompt = f"""
 {BEACON_PROMPT}
 
-Business Summary:
+==============================
+BUSINESS DATA
+==============================
+
+The following information was generated automatically from the uploaded spreadsheet.
+
+Treat these values as factual.
+
 {summary}
 
-User Question:
+==============================
+USER QUESTION
+==============================
+
 {question}
 
-Answer like Beacon.
+==============================
+INSTRUCTIONS
+==============================
+
+Use ONLY the business data above.
+
+Do NOT ask for additional sales history if Overall Sales Growth exists.
+
+If Product Growth exists,
+use it.
+
+If Growing Products exist,
+mention them.
+
+If Declining Products exist,
+mention them.
+
+Always support your answer with numbers.
+
+Do not invent information.
+
+Answer as Beacon.
 """
 
     response = client.models.generate_content(
