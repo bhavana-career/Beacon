@@ -249,26 +249,17 @@ The frontend is deployed as a static Single Page Application (SPA) on Lovable.
 ## Screenshots
 
 ### Landing Page
-*(Add screenshot)*
+<img width="1918" height="910" alt="image" src="https://github.com/user-attachments/assets/4a6b5b40-5a88-4fd8-b4e7-f8c58aaa7ba9" />
 
-### Dashboard
-*(Add screenshot)*
+
+
 
 ### Executive Summary
-*(Add screenshot)*
+<img width="1916" height="903" alt="image" src="https://github.com/user-attachments/assets/d64c5295-a879-44f7-8b06-2a2badbfa5f1" />
 
-### AI Chat
-*(Add screenshot)*
+### Deployment
 
-### Report History
-*(Add screenshot)*
-
----
-
-## Demo Video
-
-*(Add YouTube link)*
-
+https://beaconswe.lovable.app/
 ---
 
 ## Challenges Solved
