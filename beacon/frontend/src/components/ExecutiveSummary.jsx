@@ -28,64 +28,70 @@ export default function ExecutiveSummary({ reportData }) {
     <motion.div 
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="glass-card w-full p-6 lg:p-8 flex flex-col gap-6"
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="glass-card w-full p-8 lg:p-10 flex flex-col gap-8 mb-6"
     >
-      <div className="flex items-center justify-between border-b border-executive-border pb-4">
-        <h2 className="text-xl font-bold text-executive-text tracking-tight flex items-center gap-2">
-          <Target className="w-5 h-5 text-executive-gold" />
-          Executive Briefing
-        </h2>
-        <span className="text-sm font-semibold px-3 py-1 bg-executive-surface rounded-full text-executive-text border border-executive-border">
+      <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-black/[0.04] pb-6 gap-4">
+        <div>
+          <h2 className="text-3xl font-black text-executive-text tracking-tight flex items-center gap-3">
+            <Target className="w-8 h-8 text-gold-metallic" />
+            Executive Briefing
+          </h2>
+          <p className="text-executive-textMuted mt-1 font-medium">Strategic overview of your current business dataset.</p>
+        </div>
+        <span className="text-sm font-bold px-4 py-2 bg-executive-surface rounded-full text-executive-text border border-black/[0.06] shadow-sm flex items-center gap-2 w-max">
+          <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
           Status: {status}
         </span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         
         {/* Sales Growth */}
-        <div className="flex flex-col">
-          <span className="text-xs font-semibold text-executive-textMuted uppercase tracking-wider mb-2 flex items-center gap-1.5">
-            <TrendingUp className="w-3.5 h-3.5 text-executive-gold" /> Sales Growth
+        <div className="flex flex-col gap-1">
+          <span className="text-sm font-bold text-executive-textMuted uppercase tracking-widest flex items-center gap-2">
+            <TrendingUp className="w-4 h-4 text-gold-metallic" /> Sales Growth
           </span>
-          <span className={`text-2xl font-bold ${isPositiveGrowth ? 'text-green-700' : 'text-red-700'}`}>
+          <span className={`text-4xl font-black tracking-tighter ${isPositiveGrowth ? 'text-green-600' : 'text-red-600'}`}>
             {salesGrowth}
           </span>
-          <span className="text-xs text-executive-textMuted mt-1">vs. Period Start</span>
+          <span className="text-sm font-medium text-executive-textMuted">vs. Period Start</span>
         </div>
 
         {/* Best Product */}
-        <div className="flex flex-col">
-          <span className="text-xs font-semibold text-executive-textMuted uppercase tracking-wider mb-2 flex items-center gap-1.5">
-            <Award className="w-3.5 h-3.5 text-executive-gold" /> Top Performer
+        <div className="flex flex-col gap-1">
+          <span className="text-sm font-bold text-executive-textMuted uppercase tracking-widest flex items-center gap-2">
+            <Award className="w-4 h-4 text-gold-metallic" /> Top Performer
           </span>
-          <span className="text-lg font-semibold text-executive-text truncate">
+          <span className="text-2xl font-bold text-executive-text truncate mt-1">
             {best_product || 'N/A'}
           </span>
-          <span className="text-xs text-executive-textMuted mt-1">Highest Revenue Driver</span>
+          <span className="text-sm font-medium text-executive-textMuted">Highest Revenue Driver</span>
         </div>
 
         {/* Biggest Risk */}
-        <div className="flex flex-col">
-          <span className="text-xs font-semibold text-executive-textMuted uppercase tracking-wider mb-2 flex items-center gap-1.5">
-            <AlertTriangle className="w-3.5 h-3.5 text-red-600" /> Key Risk Factor
+        <div className="flex flex-col gap-1">
+          <span className="text-sm font-bold text-executive-textMuted uppercase tracking-widest flex items-center gap-2">
+            <AlertTriangle className="w-4 h-4 text-red-500" /> Key Risk Factor
           </span>
-          <span className="text-sm font-medium text-executive-text leading-tight">
+          <span className="text-lg font-semibold text-executive-text leading-tight mt-1">
             {biggestRisk}
           </span>
         </div>
 
-        {/* AI Recommendation */}
-        <div className="flex flex-col bg-executive-surface/50 p-4 rounded-xl border border-executive-border/50">
-          <span className="text-xs font-semibold text-executive-textMuted uppercase tracking-wider mb-2 flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5 text-executive-gold" /> Priority Action
-          </span>
-          <span className="text-sm font-medium text-executive-text leading-tight line-clamp-3">
-            {recommendation}
-          </span>
-        </div>
-
       </div>
+
+      {/* AI Recommendation Centerpiece */}
+      <div className="mt-4 flex flex-col bg-gradient-to-br from-executive-surface to-white p-6 rounded-2xl border border-gold-metallic shadow-sm relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-gold-metallic opacity-[0.03] rounded-bl-full pointer-events-none"></div>
+        <span className="text-sm font-bold text-gold-metallic uppercase tracking-widest mb-3 flex items-center gap-2">
+          <Sparkles className="w-4 h-4" /> Priority Strategic Action
+        </span>
+        <span className="text-lg font-medium text-executive-text leading-relaxed">
+          {recommendation}
+        </span>
+      </div>
+
     </motion.div>
   );
 }

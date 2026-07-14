@@ -8,14 +8,15 @@ export default {
     extend: {
       colors: {
         executive: {
-          bg: '#FDFBF5',      // Warm ivory background
-          card: '#FFFFFF',    // Pure white for cards
-          gold: '#D4AF37',    // Champagne Gold accent
-          goldHover: '#c19f32', 
-          text: '#1C1C1C',    // Near black primary text
-          textMuted: '#6B7280', // Muted gray secondary text
-          border: '#E5E7EB',  // Very soft border
-          surface: '#F9FAFB', // Very soft surface for inner elements
+          bg: '#FDFBF5',      // Warm Ivory
+          card: '#FFFFFF',    // Pure White
+          gold: '#D4AF37',    // Champagne Gold
+          goldMetallic: '#C9A227', 
+          goldHighlight: '#F6E27A',
+          text: '#1C1C1C',    // Near Black
+          textMuted: '#6B7280', // Muted Gray
+          border: '#E5E7EB',  
+          surface: '#F9FAFB', 
         }
       },
       fontFamily: {

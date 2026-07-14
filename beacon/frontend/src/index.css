@@ -27,19 +27,38 @@
 }
 
 @layer components {
+  /* Apple/Stripe-tier premium shadows */
   .glass-card {
-    @apply bg-executive-card border border-executive-border rounded-2xl shadow-lg transition-all duration-300;
+    @apply bg-executive-card border border-black/[0.04] rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300;
   }
   
   .glass-card-hover {
-    @apply hover:shadow-xl hover:border-executive-gold/30;
+    @apply hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-1;
   }
   
+  /* Metallic Gold Utilities */
+  .text-gold-metallic {
+    background: linear-gradient(135deg, #C9A227 0%, #F6E27A 50%, #D4AF37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .bg-gold-metallic {
+    background: linear-gradient(135deg, #D4AF37 0%, #C9A227 50%, #D4AF37 100%);
+  }
+
+  .border-gold-metallic {
+    border-image: linear-gradient(135deg, #C9A227, #F6E27A, #D4AF37) 1;
+  }
+  
+  /* Premium Buttons */
   .btn-lava {
-    @apply bg-executive-gold hover:bg-executive-goldHover text-white font-medium py-3 px-6 rounded-xl shadow-lg shadow-executive-gold/20 hover:shadow-xl hover:shadow-executive-gold/30 transition-all focus:outline-none focus:ring-2 focus:ring-executive-gold focus:ring-offset-2 focus:ring-offset-executive-bg active:scale-95;
+    @apply bg-gold-metallic text-white font-semibold py-3.5 px-8 rounded-full shadow-[0_8px_20px_rgba(212,175,55,0.25)] hover:shadow-[0_12px_28px_rgba(212,175,55,0.4)] transition-all focus:outline-none focus:ring-2 focus:ring-executive-gold focus:ring-offset-2 focus:ring-offset-executive-bg active:scale-95;
   }
   
   .btn-secondary {
-    @apply bg-executive-card hover:bg-executive-surface border border-executive-border text-executive-text font-medium py-3 px-6 rounded-xl shadow-sm hover:shadow transition-all focus:outline-none focus:ring-2 focus:ring-executive-gold focus:ring-offset-2 focus:ring-offset-executive-bg active:scale-95;
+    @apply bg-executive-card hover:bg-black/[0.02] border border-black/[0.06] text-executive-text font-semibold py-3.5 px-8 rounded-full shadow-sm hover:shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-executive-gold focus:ring-offset-2 focus:ring-offset-executive-bg active:scale-95;
   }
 }
+

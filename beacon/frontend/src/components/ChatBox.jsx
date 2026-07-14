@@ -55,18 +55,19 @@ export default function ChatBox({ reportId }) {
     <div className="glass-card flex flex-col h-full relative overflow-hidden bg-executive-card">
       
       {/* Header */}
-      <div className="flex items-center gap-4 p-6 border-b border-executive-border bg-executive-card z-10 shrink-0">
-        <div className="w-10 h-10 rounded-full bg-executive-surface border border-executive-border flex items-center justify-center">
-          <Sparkles className="w-5 h-5 text-executive-gold" />
+      <div className="flex items-center gap-4 p-5 border-b border-black/[0.04] bg-executive-card z-10 shrink-0 shadow-sm relative">
+        <div className="absolute inset-x-0 bottom-0 h-[1px] bg-gold-metallic opacity-20"></div>
+        <div className="w-10 h-10 rounded-xl bg-executive-surface border border-black/[0.06] flex items-center justify-center shadow-sm">
+          <Sparkles className="w-5 h-5 text-gold-metallic" />
         </div>
         <div>
-          <h2 className="text-base font-semibold text-executive-text">Beacon AI</h2>
-          <p className="text-xs font-medium text-executive-textMuted uppercase tracking-wider mt-0.5">Business Advisor</p>
+          <h2 className="text-base font-bold text-executive-text tracking-tight">Beacon AI</h2>
+          <p className="text-xs font-semibold text-gold-metallic uppercase tracking-widest mt-0.5">Business Advisor</p>
         </div>
       </div>
 
       {/* Chat History Area */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 flex flex-col gap-6 scroll-smooth min-h-0 bg-executive-surface/30">
+      <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 flex flex-col gap-6 scroll-smooth min-h-0 bg-executive-bg/50">
         <AnimatePresence initial={false}>
           {messages.map((msg, index) => (
             <motion.div 
@@ -77,15 +78,15 @@ export default function ChatBox({ reportId }) {
               className={`flex items-start gap-4 max-w-[95%] w-full ${msg.role === 'user' ? 'ml-auto flex-row-reverse' : ''}`}
             >
               {/* Avatar */}
-              <div className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center mt-1 border ${msg.role === 'user' ? 'bg-executive-text border-executive-text' : 'bg-executive-surface border-executive-border'}`}>
-                {msg.role === 'user' ? <User className="w-4 h-4 text-white" /> : <Sparkles className="w-4 h-4 text-executive-gold" />}
+              <div className={`shrink-0 w-8 h-8 flex items-center justify-center mt-1 rounded-xl shadow-sm border ${msg.role === 'user' ? 'bg-executive-text border-executive-text' : 'bg-white border-black/[0.06]'}`}>
+                {msg.role === 'user' ? <User className="w-4 h-4 text-white" /> : <Sparkles className="w-4 h-4 text-gold-metallic" />}
               </div>
 
               {/* Bubble */}
               <div className={`px-5 py-4 rounded-2xl text-sm leading-relaxed overflow-hidden break-words shadow-sm ${
                 msg.role === 'user' 
                   ? 'bg-executive-text border border-executive-text text-white rounded-tr-sm font-medium' 
-                  : 'bg-white border border-executive-border text-executive-text rounded-tl-sm prose max-w-none prose-p:leading-7 prose-p:mb-4 prose-headings:text-executive-text prose-headings:font-bold prose-headings:mb-3 prose-headings:mt-6 first:prose-headings:mt-0 prose-li:mb-1 prose-ul:mb-4 prose-ol:mb-4 prose-a:text-executive-gold hover:prose-a:text-executive-goldHover prose-strong:text-executive-text'
+                  : 'bg-white border border-black/[0.04] text-executive-text rounded-tl-sm prose max-w-none prose-p:leading-7 prose-p:mb-4 prose-headings:text-executive-text prose-headings:font-bold prose-headings:mb-3 prose-headings:mt-6 first:prose-headings:mt-0 prose-li:mb-1 prose-ul:mb-4 prose-ol:mb-4 prose-a:text-gold-metallic prose-strong:text-executive-text'
               }`}>
                 {msg.role === 'user' ? (
                   msg.content
@@ -105,12 +106,13 @@ export default function ChatBox({ reportId }) {
             animate={{ opacity: 1, y: 0 }}
             className="flex items-start gap-4 max-w-[90%]"
           >
-            <div className="shrink-0 w-8 h-8 rounded-full bg-executive-surface border border-executive-border flex items-center justify-center mt-1">
-              <Sparkles className="w-4 h-4 text-executive-gold" />
+            <div className="shrink-0 w-8 h-8 rounded-xl bg-white border border-black/[0.06] shadow-sm flex items-center justify-center mt-1">
+              <Sparkles className="w-4 h-4 text-gold-metallic" />
             </div>
-            <div className="px-5 py-4 rounded-2xl bg-white border border-executive-border shadow-sm text-executive-text rounded-tl-sm flex items-center gap-3">
-              <Loader2 className="w-4 h-4 animate-spin text-executive-gold" />
-              <span className="text-sm font-medium text-executive-textMuted">Beacon is analyzing...</span>
+            <div className="px-5 py-4 rounded-2xl bg-white border border-black/[0.04] shadow-sm text-executive-text rounded-tl-sm flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-gold-metallic rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
+              <span className="w-1.5 h-1.5 bg-gold-metallic rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
+              <span className="w-1.5 h-1.5 bg-gold-metallic rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
             </div>
           </motion.div>
         )}
@@ -128,14 +130,14 @@ export default function ChatBox({ reportId }) {
       </div>
 
       {/* Input Area */}
-      <div className="p-5 bg-executive-card border-t border-executive-border shrink-0 z-10">
+      <div className="p-5 bg-executive-card shrink-0 z-10 shadow-[0_-4px_20px_rgba(0,0,0,0.02)] border-t border-black/[0.04]">
         <div className="relative">
           <textarea
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Ask a question about your business data..."
-            className="w-full bg-white border border-executive-border shadow-sm rounded-xl py-4 pl-5 pr-14 text-sm text-executive-text placeholder-executive-textMuted focus:outline-none focus:border-executive-gold focus:ring-1 focus:ring-executive-gold resize-none h-[56px] overflow-hidden leading-relaxed font-medium transition-all"
+            placeholder="Ask Beacon a question..."
+            className="w-full bg-executive-surface border border-black/[0.06] shadow-inner rounded-xl py-4 pl-5 pr-14 text-sm text-executive-text placeholder-executive-textMuted focus:outline-none focus:border-gold-metallic focus:ring-1 focus:ring-gold-metallic resize-none h-[56px] overflow-hidden leading-relaxed font-medium transition-all"
             disabled={loading}
             rows={1}
           />
@@ -144,14 +146,14 @@ export default function ChatBox({ reportId }) {
             disabled={!question.trim() || loading}
             className={`absolute right-2 top-2 p-2.5 rounded-lg transition-all duration-200 ${
               question.trim() && !loading 
-                ? 'bg-executive-gold text-white hover:bg-executive-goldHover shadow-sm hover:shadow-md' 
-                : 'bg-executive-surface text-executive-textMuted/50 cursor-not-allowed border border-transparent'
+                ? 'bg-gold-metallic text-white hover:scale-105 shadow-sm' 
+                : 'bg-white text-executive-textMuted/50 cursor-not-allowed border border-black/[0.06]'
             }`}
           >
             <Send className="w-4 h-4" />
           </button>
         </div>
-        <p className="text-[11px] text-center font-medium text-executive-textMuted mt-3 uppercase tracking-widest opacity-80">
+        <p className="text-[10px] text-center font-bold text-executive-textMuted mt-3 uppercase tracking-widest opacity-60">
           Beacon may produce inaccurate information. Verify before strategic decisions.
         </p>
       </div>

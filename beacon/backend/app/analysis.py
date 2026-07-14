@@ -180,23 +180,40 @@ Worst Product:
 {worst_product}
 """
 
+    import math
+
+    def sanitize(val):
+        if isinstance(val, float) and (math.isnan(val) or math.isinf(val)):
+            return None
+        return val
+
+    def clean_dict(d):
+        if isinstance(d, dict):
+            return {k: clean_dict(v) for k, v in d.items()}
+        elif isinstance(d, list):
+            return [clean_dict(v) for v in d]
+        else:
+            return sanitize(d)
+
+    metrics = {
+        "rows": rows,
+        "columns": columns,
+        "column_names": list(df.columns),
+        "total_sales": total_sales,
+        "total_profit": total_profit,
+        "sales_by_month": sales_by_month,
+        "profit_by_month": profit_by_month,
+        "overall_growth": overall_growth,
+        "growth": growth,
+        "growing_products": growing_products,
+        "declining_products": declining_products,
+        "health_score": health_score,
+        "status": status,
+        "best_product": best_product,
+        "worst_product": worst_product,
+    }
+
     return {
-        "metrics": {
-            "rows": rows,
-            "columns": columns,
-            "column_names": list(df.columns),
-            "total_sales": total_sales,
-            "total_profit": total_profit,
-            "sales_by_month": sales_by_month,
-            "profit_by_month": profit_by_month,
-            "overall_growth": overall_growth,
-            "growth": growth,
-            "growing_products": growing_products,
-            "declining_products": declining_products,
-            "health_score": health_score,
-            "status": status,
-            "best_product": best_product,
-            "worst_product": worst_product,
-        },
+        "metrics": clean_dict(metrics),
         "summary": summary,
     }

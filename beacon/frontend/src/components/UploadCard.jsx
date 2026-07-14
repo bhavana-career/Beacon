@@ -18,30 +18,53 @@ export default function UploadCard({ setReportId, setReportData }) {
     }
   };
 
+  const processingSteps = [
+    "Uploading Spreadsheet...",
+    "Reading Business Data...",
+    "Analyzing Performance...",
+    "Calculating Health Score...",
+    "Building Executive Dashboard...",
+    "Consulting Beacon AI..."
+  ];
+  
+  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+
   const handleUpload = async () => {
     if (!selectedFile) return;
 
     setLoading(true);
     setError(null);
     setSuccess(false);
+    setCurrentStepIndex(0);
 
     const formData = new FormData();
     formData.append('file', selectedFile);
 
     try {
+      // Start the mock processing sequence
+      const stepInterval = setInterval(() => {
+        setCurrentStepIndex((prev) => (prev < processingSteps.length - 1 ? prev + 1 : prev));
+      }, 700);
+
       const response = await api.post('/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
-      await new Promise((resolve) => setTimeout(resolve, 800));
-
-      setReportId(response.data.report_id);
-      setReportData(response.data.analysis);
+      // Ensure we go through enough of the sequence to look good (minimum 4.2 seconds)
+      await new Promise((resolve) => setTimeout(resolve, 4500));
+      clearInterval(stepInterval);
+      
       setSuccess(true);
+      
+      // Small pause on the success checkmark before navigating
+      setTimeout(() => {
+        setReportId(response.data.report_id);
+        setReportData(response.data.analysis);
+      }, 800);
+      
     } catch (err) {
       setError(err.response?.data?.detail || "We couldn't process this file. Please ensure it is a valid CSV or Excel format and try again.");
       console.error(err);
-    } finally {
       setLoading(false);
     }
   };
@@ -51,12 +74,12 @@ export default function UploadCard({ setReportId, setReportData }) {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="glass-card w-full max-w-2xl mx-auto p-10 relative overflow-hidden bg-executive-card"
+      className="glass-card w-full max-w-2xl p-8 relative overflow-hidden bg-executive-card"
     >
-      <h2 className="text-2xl font-semibold text-executive-text mb-8 relative z-10 text-center tracking-tight">Upload Dataset</h2>
+      <h2 className="text-xl font-semibold text-executive-text mb-6 relative z-10 text-center tracking-tight">Upload Dataset</h2>
       
       <div 
-        className={`relative z-10 border-2 border-dashed rounded-xl p-12 flex flex-col items-center justify-center transition-all duration-300 ${isHovered ? 'border-executive-gold bg-executive-gold/5' : 'border-executive-border bg-executive-surface'} ${selectedFile ? 'border-executive-gold/40' : ''}`}
+        className={`relative z-10 border border-dashed rounded-xl p-10 flex flex-col items-center justify-center transition-all duration-300 ${isHovered ? 'border-executive-gold bg-executive-gold/5' : 'border-executive-border bg-executive-surface'} ${selectedFile ? 'border-executive-gold/40' : ''}`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -131,13 +154,18 @@ export default function UploadCard({ setReportId, setReportData }) {
           <button 
             onClick={handleUpload} 
             disabled={!selectedFile || loading}
-            className={`btn-lava w-full max-w-md h-12 flex items-center justify-center gap-2 text-lg font-medium ${(!selectedFile || loading) ? 'opacity-50 cursor-not-allowed hover:-translate-y-0 hover:shadow-none' : ''}`}
+            className={`btn-lava w-full max-w-md h-14 flex items-center justify-center gap-3 text-lg font-semibold ${(!selectedFile || loading) ? 'opacity-70 cursor-not-allowed hover:-translate-y-0 hover:shadow-none' : ''}`}
           >
             {loading ? (
-              <>
+              <motion.div 
+                key={processingSteps[currentStepIndex]}
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex items-center gap-3"
+              >
                 <Loader2 className="w-5 h-5 animate-spin" />
-                Analyzing Intelligence...
-              </>
+                {processingSteps[currentStepIndex]}
+              </motion.div>
             ) : (
               'Upload and Analyze'
             )}
