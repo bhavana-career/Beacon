@@ -257,9 +257,6 @@ The frontend is deployed as a static Single Page Application (SPA) on Lovable.
 ### Executive Summary
 <img width="1916" height="903" alt="image" src="https://github.com/user-attachments/assets/d64c5295-a879-44f7-8b06-2a2badbfa5f1" />
 
-### Deployment
-
-https://beaconswe.lovable.app/
 ---
 
 ## Challenges Solved
